@@ -24,7 +24,7 @@ class Worker(Human):
         return self.__week_salary / self.__work_hours_per_day * 5
 
     def __repr__(self):
-        return '({}, {}, {}, {})'.format(self._first_name, self._last_name,
+        return '({}, {}, {}, {})'.format(self.first_name, self.last_name,
                                          self.__week_salary,
                                          self.__work_hours_per_day)
 

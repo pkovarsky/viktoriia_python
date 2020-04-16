@@ -11,7 +11,7 @@ class Student(Human):
         self.grade = grade
 
     def __repr__(self):
-        return '({}, {}, {})'.format(self._first_name, self._last_name,
+        return '({}, {}, {})'.format(self.first_name, self.last_name,
                                      self.grade)
 
     def do_hobby(self):

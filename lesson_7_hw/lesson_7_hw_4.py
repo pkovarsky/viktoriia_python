@@ -33,5 +33,6 @@ sorted_students_grade = sorted(STUDENTS, key=sort_students_grade)
 sorted_workers_salary = sorted(WORKERS, key=sort_workers_salary)
 
 result = STUDENTS + WORKERS
+print(result)
 
 hobbies = map(lambda x: x.do_hobby(), result)
