@@ -32,16 +32,11 @@ class IContact(ABC):
     def number(self):
         pass
 
-    @abstractmethod
-    def is_favorite(self):
-        pass
-
 
 class PhoneBookContact(IContact):
-    def __init__(self, name, number, is_favorite):
+    def __init__(self, name, number):
         self.__name = name
         self.__number = number
-        self.__is_favorite = is_favorite
 
     @property
     def name(self):
@@ -51,25 +46,21 @@ class PhoneBookContact(IContact):
     def number(self):
         return self.__number
 
-    @property
-    def is_favorite(self):
-        return self.__is_favorite
-
-    @is_favorite.setter
-    def is_favorite(self, fav):
-        self.__is_favorite = fav
-
 
 class PhoneBook:
     def __init__(self):
         self.__contacts: List[IContact] = []
         self.__calls: List[IContact] = []
+        self.__favorites: List[IContact] = []
 
     def __iter__(self):
         return iter(self.__contacts)
 
     def add_contact(self, contact: IContact):
         self.__contacts.append(contact)
+
+    def add_to_favorites(self, contact: IContact):
+        self.__favorites.append(contact)
 
     def find_contact(self, name):
         match = list(filter(lambda x: x.name == name, self.__contacts))
@@ -82,15 +73,14 @@ class PhoneBook:
         self.__contacts.remove(item)
 
     def call(self, contact: IContact):
-        sub = self.find_contact(contact.name)
-        print(f"Calling to {sub.number}... ")
+        subscriber = self.find_contact(contact.name)
+        print(f"Calling to {subscriber.number}... ")
         self.__calls.append(contact)
 
     @property
     def recent_calls(self):
         return self.__calls[:10]
 
-    def add_to_favorites(self, contact: IContact):
-        existing = self.find_contact(contact.name)
-        if existing:
-            existing.is_favorite = True
+    @property
+    def favorites(self):
+        return self.__favorites
